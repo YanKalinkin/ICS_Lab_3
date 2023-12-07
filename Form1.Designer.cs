@@ -180,14 +180,14 @@
             this.textBox5.Location = new System.Drawing.Point(475, 22);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(362, 465);
+            this.textBox5.Size = new System.Drawing.Size(654, 465);
             this.textBox5.TabIndex = 12;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 540);
+            this.ClientSize = new System.Drawing.Size(1166, 540);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.label4);

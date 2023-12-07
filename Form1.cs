@@ -20,8 +20,15 @@ namespace ICS_Lab_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            textBox2.Text = Data.Cesar_with_key(textBox1.Text, Convert.ToInt16(textBox3.Text), textBox4.Text, true);
-            textBox1.Text = "";
+            if ((textBox3.Text.Length == 0)||(textBox4.Text.Length == 0))
+            {
+                MessageBox.Show("Plaease enter offset and key word!");
+            }
+            else
+            {
+                textBox2.Text = Data.Cesar_with_key(textBox1.Text, Convert.ToInt16(textBox3.Text), textBox4.Text, true);
+                textBox1.Text = "";
+            }  
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -33,18 +40,42 @@ namespace ICS_Lab_3
         private void button3_Click(object sender, EventArgs e)
         {
             Data.Vigenere("Key", "Key", textBox5);
+            textBox2.Text = Data.space_replace(textBox1.Text, false);
         }
     }
 
     public static class Data
     {
         public static string alphabet_h = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        public static string alphabet_l = alphabet_h.ToLower();
-        public static string alphabet_s = " 1234567890";
+        public static string alphabet_l = "abcdefghijklmnopqrstuvwxyz";
+        public static string alphabet_s = "_1234567890";
         public static string alphabet_common = alphabet_h + alphabet_l + alphabet_s;
         public static string key_word = "";
         public static string common = "";
         public static int index;
+        public static string space_replace(string find_space, bool mode)
+        {
+            string space_replaced = "";
+            for (int i = 0; i < find_space.Length; i++)
+            {
+                if (mode)
+                {
+                    if (find_space[i] != ' ')
+                        space_replaced += find_space[i];
+                    else
+                        space_replaced += '_';
+                }
+                else
+                {
+                    if (find_space[i] != '_')
+                        space_replaced += find_space[i];
+                    else
+                        space_replaced += ' ';
+                }
+                
+            }
+            return space_replaced;
+        }
         public static string Cesar_with_key(string to_encrypt, int position, string key_word, bool mode)
         {
             string encrypted = "";
@@ -111,8 +142,9 @@ namespace ICS_Lab_3
         }
         public static string Vigenere(string to_encrypt, string slogan, TextBox t1)
         {
+            string alph = alphabet_h + alphabet_l + alphabet_s;
             TextBox tb = t1;
-            string[] vigenere_matrix = new string[alphabet_h.Length];
+            string[] vigenere_matrix = new string[alph.Length];
             string encrypted = "1";
             string shift(string to_shift, int step)
             {
@@ -120,7 +152,14 @@ namespace ICS_Lab_3
                 string before = "";
                 for (int i = 0; i < step; i++)
                 {
-                    after += to_shift[i];
+                    if (to_shift[i] == 32)
+                    {
+                        after += " ";
+                    }
+                    else
+                    {
+                        after += to_shift[i];
+                    }
                 }
                 before = to_shift.Remove(0, step);
                 return before + after;
@@ -128,11 +167,8 @@ namespace ICS_Lab_3
             //Matrix filling
             for (int i = 0; i < vigenere_matrix.Length; i++)
             {
-                tb.AppendText(shift(alphabet_h, i) + '\n');
+                tb.AppendText(shift(alph, i) + '\n');
             }
-
-
-
             return encrypted;
         }
     }
